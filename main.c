@@ -42,7 +42,6 @@ int main(void)
 		{
 			free(args[i]);
 		}
-		free(args);
 	}
 	free(command_lines);
 	return (0);
