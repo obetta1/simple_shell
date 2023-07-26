@@ -6,7 +6,6 @@
 int main(void)
 {
 	char *command_lines;
-	size_t buffer_size = 0;
 	ssize_t nread = 0;
 	int i = 0;
 	char **args;
@@ -15,9 +14,15 @@ int main(void)
 	while (nread != -1)
 	{
 		write(1, "$", 1);
-		nread = getline(&command_lines,  &buffer_size, stdin);
+		command_lines = _getline();
+		if (command_lines == NULL)
+			continue;
 		args = split_arg(command_lines, " \t\n");
+		if (compare_string(args[i], "env"))
+		{
 		_printenv(args);
+		continue;
+		}
 		if (exit_shell(args))
 		{
 			break;

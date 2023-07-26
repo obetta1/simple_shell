@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>
+char *check_line(int hasInput, char *line, int lineLength);
+char *_getline();
 int exit_shell(char **args);
 char **split_arg(char *str,  char *delim);
 void _execve(char **args);
