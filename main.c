@@ -10,7 +10,7 @@ int main(void)
 	ssize_t nread = 0;
 	int i = 0;
 	char **args;
-	const char *error_message = "path not found: ";
+	const char *error_message = "No such file or directory ";
 
 	while (nread != -1)
 	{
