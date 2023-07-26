@@ -28,7 +28,7 @@ int main(void)
 		}
 		if (access(args[0], X_OK) == -1)
 		{
-			write(1, args[0], strlen(args[0]));
+			write(1, args[0], _strlen(args[0]));
 			write(1, ":", 1);
 			write(1, error_message, strlen(error_message));
 			write(1, "\n", 1);

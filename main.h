@@ -4,7 +4,6 @@
 #define MAX_COMMAND_LENGTH 100
 #define MAX_ARGS 10
 
-#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
