@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>
+ssize_t custom_getline(char **lineptr, size_t *n);
 char *check_line(int hasInput, char *line, int lineLength);
 char *_getline();
 int exit_shell(char **args);
