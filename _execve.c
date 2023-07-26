@@ -17,8 +17,8 @@ void _execve(char **args)
 	else if (child_pid == 0)
 	{
 		execve(args[0], args, NULL);
-		write(STDERR_FILENO, error_message, strlen(error_message));
-		write(STDERR_FILENO, args[0], strlen(args[0]));
+		write(STDERR_FILENO, error_message, _strlen(error_message));
+		write(STDERR_FILENO, args[0], _strlen(args[0]));
 		write(STDERR_FILENO, "\n", 1);
 		exit(1);
 	}
