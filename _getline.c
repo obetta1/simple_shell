@@ -19,7 +19,7 @@ char *_getline()
 			position = 0;
 			if (byteRead == 1)
 				return (check_line(hasInput, line, lineLenght));
-			if(byteRead == 0)
+			if (byteRead == 0)
 				return (NULL);
 		}
 		while (position < byteRead)

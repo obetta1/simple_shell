@@ -5,7 +5,7 @@
  */
 int main(void)
 {
-	size_t buffer_size =0;
+	size_t buffer_size = 0;
 	char *command_lines;
 	ssize_t nread = 0;
 	int i = 0;
@@ -30,7 +30,7 @@ int main(void)
 		{
 			write(1, args[0], _strlen(args[0]));
 			write(1, ":", 1);
-			write(1, error_message, strlen(error_message));
+			write(1, error_message, _strlen(error_message));
 			write(1, "\n", 1);
 			continue;
 		}
