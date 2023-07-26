@@ -18,9 +18,9 @@ char *_getline()
 			byteRead = read(STDIN_FILENO, buffer, BUFFER_SIZE);
 			position = 0;
 			if (byteRead == 1)
-			{
 				return (check_line(hasInput, line, lineLenght));
-			}
+			if(byteRead == 0)
+				return (NULL);
 		}
 		while (position < byteRead)
 		{
@@ -56,7 +56,7 @@ char *check_line(int hasInput, char *line, int lineLength)
 	if (!hasInput)
 	{
 		free(line);
-		return (NULL);
+		return (" ");
 	}
 	line[lineLength] = '\0';
 	return (line);
