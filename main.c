@@ -1,45 +1,44 @@
-#include "main.h"
-/**
- * main - main function
- * Return: 0 or 1
- */
-int main(void)
-{
-	char *command_lines;
-	ssize_t nread = 0;
-	int i = 0;
-	char **args;
-	const char *error_message = " No such file or directory ";
 
-	while (nread != -1)
+#include "main.h"
+
+/**
+* main - entry point
+* @argc: arg count
+* @argv: arg vector
+*
+* Return: 0 on success, 1 on error
+*/
+int main(int argc, char **argv)
+{
+	info_t input[] = { INPUT_INIT };
+	int fdes = 2;
+
+	asm ("mov %1, %0\n\t"
+			"add $3, %0"
+			: "=r" (fdes)
+			: "r" (fdes));
+	if (argc == 2)
 	{
-		write(1, "$", 1);
-		command_lines = _getline();
-		if (command_lines == NULL)
-			break;
-		args = split_arg(command_lines, " \t\n");
-		if (compare_string(args[0], "env"))
+		fdes = open(argv[1], O_RDONLY);
+		if (fdes == -1)
 		{
-		_printenv(args);
-		continue;
+			if (errno == EACCES)
+				exit(126);
+			if (errno == ENOENT)
+			{
+				puts_err(argv[0]);
+				puts_err(": 0: Can't open ");
+				puts_err(argv[1]);
+				putchar_err('\n');
+				putchar_err(FLUSH_BUF);
+				exit(127);
+			}
+			return (EXIT_FAILURE);
 		}
-		if (exit_shell(args))
-			break;
-		if (access(args[0], X_OK) == -1)
-		{
-			write(1, args[0], _strlen(args[0]));
-			write(1, ":", 1);
-			write(1, error_message, _strlen(error_message));
-			write(1, "\n", 1);
-			continue;
-		}
-		else
-		{
-		_execve(args);
-		}
-		for (i = 0; args[i] != NULL; i++)
-			free(args[i]);
+		input->readfdes = fdes;
 	}
-	free(command_lines);
-	return (0);
+	display_env_list(input);
+	read_hist(input);
+	shell(input, argv);
+	return (EXIT_SUCCESS);
 }
